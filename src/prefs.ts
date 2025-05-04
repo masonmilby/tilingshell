@@ -729,6 +729,13 @@ export default class TilingShellExtensionPreferences extends ExtensionPreference
                 false,
             ],
             [
+                Settings.SETTING_FOCUS_WINDOW_UNDER,
+                _('Focus window under'),
+                _('Focus the window under the current focused window'),
+                false,
+                false,
+            ],
+            [
                 Settings.SETTING_HIGHLIGHT_CURRENT_WINDOW,
                 _('Highlight focused window'),
                 _(

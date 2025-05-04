@@ -719,7 +719,37 @@ export default class TilingShellExtension extends Extension {
                 if (nextIndex > 0 || Settings.WRAPAROUND_FOCUS)
                     windowList[nextIndex].activate(global.get_current_time());
                 break;
+
+            case FocusSwitchDirection.UNDER: {
+                const focusedWindow = focus_window as ExtendedWindow;
+                const windowsList = windowList as ExtendedWindow[];
+
+                const tileWindows = windowsList.filter((win) =>
+                    this._tilesAreEqual(
+                        win.assignedTile,
+                        focusedWindow.assignedTile,
+                    ),
+                );
+                if (tileWindows.length <= 1) return;
+
+                const currentIndex = tileWindows.indexOf(focusedWindow);
+                if (currentIndex === -1) return;
+
+                nextIndex = (currentIndex + 1) % tileWindows.length;
+                tileWindows[nextIndex].activate(global.get_current_time());
+                break;
+            }
         }
+    }
+
+    private _tilesAreEqual(tileA: Tile | undefined, tileB: Tile | undefined) {
+        if (!tileA || !tileB) return false;
+        return (
+            tileA.x === tileB.x &&
+            tileA.y === tileB.y &&
+            tileA.width === tileB.width &&
+            tileA.height === tileB.height
+        );
     }
 
     private _onKeyboardUntileWindow(kb: KeyBindings, display: Meta.Display) {

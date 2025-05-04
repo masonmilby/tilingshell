@@ -277,6 +277,10 @@
 			<default><![CDATA[['']]]></default>
 			<summary>Focus the window prior to the current focused window</summary>
 		</key>
+        <key type="as" name="focus-window-under">
+			<default><![CDATA[['']]]></default>
+			<summary>Focus the window under the current focused window</summary>
+		</key>
 		<key type="as" name="highlight-current-window">
 			<default><![CDATA[['']]]></default>
 			<summary>Minimize all the other windows and show only the focused window</summary>

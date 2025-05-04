@@ -19,6 +19,7 @@ export enum KeyBindingsDirection {
 export enum FocusSwitchDirection {
     NEXT = 1,
     PREV,
+    UNDER,
 }
 
 export default class KeyBindings extends GObject.Object {
@@ -242,6 +243,16 @@ export default class KeyBindings extends GObject.Object {
         );
 
         Main.wm.addKeybinding(
+            Settings.SETTING_FOCUS_WINDOW_UNDER,
+            extensionSettings,
+            Meta.KeyBindingFlags.NONE,
+            Shell.ActionMode.NORMAL,
+            (display: Meta.Display) => {
+                this.emit('focus-window', display, FocusSwitchDirection.UNDER);
+            },
+        );
+
+        Main.wm.addKeybinding(
             Settings.SETTING_HIGHLIGHT_CURRENT_WINDOW,
             extensionSettings,
             Meta.KeyBindingFlags.NONE,
@@ -380,6 +391,7 @@ export default class KeyBindings extends GObject.Object {
         Main.wm.removeKeybinding(Settings.SETTING_FOCUS_WINDOW_RIGHT);
         Main.wm.removeKeybinding(Settings.SETTING_FOCUS_WINDOW_NEXT);
         Main.wm.removeKeybinding(Settings.SETTING_FOCUS_WINDOW_PREV);
+        Main.wm.removeKeybinding(Settings.SETTING_FOCUS_WINDOW_UNDER);
         Main.wm.removeKeybinding(Settings.SETTING_HIGHLIGHT_CURRENT_WINDOW);
         Main.wm.removeKeybinding(Settings.SETTING_CYCLE_LAYOUTS);
         Main.wm.removeKeybinding(Settings.SETTING_CYCLE_LAYOUTS_BACKWARD);
